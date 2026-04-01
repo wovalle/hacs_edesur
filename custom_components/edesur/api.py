@@ -108,6 +108,12 @@ class EdesurApi:
         last_day = daily[-1] if daily else {}
         last_month = monthly[-1] if monthly else {}
 
+        daily_history = [
+            {"date": d["fecha"][:10], "kwh": d.get("consumo", 0)}
+            for d in daily
+            if d.get("fecha")
+        ]
+
         return {
             "today_kwh": today_kwh,
             "yesterday_kwh": yesterday_kwh,
@@ -119,4 +125,5 @@ class EdesurApi:
             "weekend_avg_kwh": habits.get("promedioFinSemana", 0),
             "last_bill_kwh": last_month.get("consumo", 0),
             "last_bill_amount": last_month.get("importe", 0),
+            "daily_history": daily_history,
         }

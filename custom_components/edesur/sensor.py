@@ -82,7 +82,11 @@ class EdesurSensor(CoordinatorEntity[EdesurCoordinator], SensorEntity):
 
     @property
     def extra_state_attributes(self):
-        """Return extra attributes for the daily consumption sensor."""
-        if self._key == "last_day_kwh" and self.coordinator.data:
+        """Return extra attributes."""
+        if self.coordinator.data is None:
+            return None
+        if self._key == "last_day_kwh":
             return {"date": self.coordinator.data.get("last_day_date")}
+        if self._key == "month_total_kwh":
+            return {"daily_history": self.coordinator.data.get("daily_history", [])}
         return None
