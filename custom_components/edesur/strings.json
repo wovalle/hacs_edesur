@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Edesur Account",
+        "description": "Enter your Edesur Oficina Virtual credentials and contract number (NIC).",
+        "data": {
+          "username": "Username",
+          "password": "Password",
+          "nic": "Contract Number (NIC)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid username or password",
+      "cannot_connect": "Cannot connect to Edesur"
+    },
+    "abort": {
+      "already_configured": "This contract is already configured"
+    }
+  }
+}

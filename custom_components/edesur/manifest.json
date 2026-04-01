@@ -1,0 +1,11 @@
+{
+  "domain": "edesur",
+  "name": "Edesur",
+  "codeowners": ["@wovalle"],
+  "config_flow": true,
+  "documentation": "https://github.com/wovalle/hacs_edesur",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/wovalle/hacs_edesur/issues",
+  "version": "1.0.0"
+}
