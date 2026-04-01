@@ -106,7 +106,11 @@ class EdesurApi:
                 break
 
         last_day = daily[-1] if daily else {}
-        last_month = monthly[-1] if monthly else {}
+
+        # Last entry in monthly is the current (in-progress) billing cycle,
+        # second-to-last is the last completed bill.
+        current_bill = monthly[-1] if monthly else {}
+        last_bill = monthly[-2] if len(monthly) >= 2 else {}
 
         daily_history = [
             {"date": d["fecha"][:10], "kwh": d.get("consumo", 0)}
@@ -123,7 +127,9 @@ class EdesurApi:
             "daily_avg_kwh": habits.get("promedioGeneral", 0),
             "weekday_avg_kwh": habits.get("promedioDiasSemana", 0),
             "weekend_avg_kwh": habits.get("promedioFinSemana", 0),
-            "last_bill_kwh": last_month.get("consumo", 0),
-            "last_bill_amount": last_month.get("importe", 0),
+            "current_bill_kwh": current_bill.get("consumo", 0),
+            "current_bill_amount": current_bill.get("importe", 0),
+            "last_bill_kwh": last_bill.get("consumo", 0),
+            "last_bill_amount": last_bill.get("importe", 0),
             "daily_history": daily_history,
         }

@@ -22,7 +22,9 @@ SENSORS: list[tuple[str, str, str, str | None, str | None, str | None]] = [
     ("daily_avg_kwh", "Daily Average", "mdi:chart-line", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
     ("weekday_avg_kwh", "Weekday Average", "mdi:chart-line", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
     ("weekend_avg_kwh", "Weekend Average", "mdi:chart-line", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
-    ("last_bill_kwh", "Last Bill Consumption", "mdi:receipt-text", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
+    ("current_bill_kwh", "Current Bill Consumption", "mdi:receipt-text-clock", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
+    ("current_bill_amount", "Current Bill Amount", "mdi:currency-usd", "DOP", None, SensorStateClass.MEASUREMENT),
+    ("last_bill_kwh", "Last Bill Consumption", "mdi:receipt-text-check", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
     ("last_bill_amount", "Last Bill Amount", "mdi:currency-usd", "DOP", None, SensorStateClass.MEASUREMENT),
 ]
 
