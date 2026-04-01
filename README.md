@@ -8,13 +8,15 @@ Fetches daily and monthly electricity consumption data from Edesur's Oficina Vir
 
 | Sensor | Description | Unit |
 |---|---|---|
-| Monthly Total | Total kWh consumed this billing period | kWh |
+| Monthly Total | Total kWh consumed this billing period (includes `daily_history` attribute) | kWh |
 | Daily Consumption | Last day's consumption | kWh |
 | Daily Average | Average daily consumption | kWh |
 | Weekday Average | Average weekday consumption | kWh |
 | Weekend Average | Average weekend consumption | kWh |
-| Last Bill Consumption | Previous bill's total consumption | kWh |
-| Last Bill Amount | Previous bill's amount | DOP |
+| Current Bill Consumption | Current (in-progress) billing cycle consumption | kWh |
+| Current Bill Amount | Current (in-progress) billing cycle amount | DOP |
+| Last Bill Consumption | Last completed bill's total consumption | kWh |
+| Last Bill Amount | Last completed bill's amount | DOP |
 
 ## Installation
 
@@ -40,6 +42,38 @@ Fetches daily and monthly electricity consumption data from Edesur's Oficina Vir
    - **Username**: Your Edesur Oficina Virtual username
    - **Password**: Your password
    - **Contract Number (NIC)**: Your contract/NIC number (found on your bill)
+
+## Daily Consumption Chart
+
+The **Monthly Total** sensor includes a `daily_history` attribute with daily kWh data for the current billing period. To visualize it as a bar chart:
+
+### Prerequisites
+
+Install [ApexCharts Card](https://github.com/RomRider/apexcharts-card) via HACS (Frontend section).
+
+### Dashboard Card
+
+Add a Manual card with this YAML:
+
+```yaml
+type: custom:apexcharts-card
+header:
+  title: Daily Consumption (kWh)
+  show: true
+graph_span: 31d
+span:
+  end: now
+series:
+  - entity: sensor.edesur_7405433_monthly_total
+    type: column
+    data_generator: |
+      const history = entity.attributes.daily_history || [];
+      return history.map(d => [new Date(d.date).getTime(), d.kwh]);
+    name: kWh
+    color: "#f9a825"
+```
+
+> Replace `7405433` with your NIC if different.
 
 ## Requirements
 
