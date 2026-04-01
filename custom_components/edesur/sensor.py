@@ -17,14 +17,16 @@ from .coordinator import EdesurCoordinator
 
 SENSORS: list[tuple[str, str, str, str | None, str | None, str | None]] = [
     # (key, name, icon, unit, device_class, state_class)
+    # Cumulative meter reading — this is what HA Energy dashboard uses
+    ("meter_reading", "Meter Reading", "mdi:meter-electric", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.TOTAL_INCREASING),
     ("month_total_kwh", "Monthly Total", "mdi:flash", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.TOTAL_INCREASING),
-    ("last_day_kwh", "Daily Consumption", "mdi:flash", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
-    ("daily_avg_kwh", "Daily Average", "mdi:chart-line", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
-    ("weekday_avg_kwh", "Weekday Average", "mdi:chart-line", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
-    ("weekend_avg_kwh", "Weekend Average", "mdi:chart-line", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
-    ("current_bill_kwh", "Current Bill Consumption", "mdi:receipt-text-clock", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
+    ("last_day_kwh", "Daily Consumption", "mdi:flash", "kWh", None, None),
+    ("daily_avg_kwh", "Daily Average", "mdi:chart-line", "kWh", None, None),
+    ("weekday_avg_kwh", "Weekday Average", "mdi:chart-line", "kWh", None, None),
+    ("weekend_avg_kwh", "Weekend Average", "mdi:chart-line", "kWh", None, None),
+    ("current_bill_kwh", "Current Bill Consumption", "mdi:receipt-text-clock", "kWh", None, None),
     ("current_bill_amount", "Current Bill Amount", "mdi:currency-usd", "DOP", None, SensorStateClass.MEASUREMENT),
-    ("last_bill_kwh", "Last Bill Consumption", "mdi:receipt-text-check", "kWh", SensorDeviceClass.ENERGY, SensorStateClass.MEASUREMENT),
+    ("last_bill_kwh", "Last Bill Consumption", "mdi:receipt-text-check", "kWh", None, None),
     ("last_bill_amount", "Last Bill Amount", "mdi:currency-usd", "DOP", None, SensorStateClass.MEASUREMENT),
 ]
 

@@ -92,6 +92,7 @@ class EdesurApi:
         daily = obj.get("historicoConsumoDiario", [])
         monthly = obj.get("historicoConsumoMensual", [])
         habits = obj.get("habitosConsumo", {})
+        readings = obj.get("resumenLecturas", [])
 
         today_str = datetime.now().strftime("%Y-%m-%d")
         today_kwh = 0.0
@@ -118,6 +119,9 @@ class EdesurApi:
             if d.get("fecha")
         ]
 
+        # Meter reading: latest energiaActiva from resumenLecturas (cumulative kWh)
+        meter_reading = readings[0].get("energiaActiva", 0) if readings else 0
+
         return {
             "today_kwh": today_kwh,
             "yesterday_kwh": yesterday_kwh,
@@ -132,4 +136,5 @@ class EdesurApi:
             "last_bill_kwh": last_bill.get("consumo", 0),
             "last_bill_amount": last_bill.get("importe", 0),
             "daily_history": daily_history,
+            "meter_reading": meter_reading,
         }
