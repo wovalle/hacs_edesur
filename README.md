@@ -8,7 +8,8 @@ Fetches daily and monthly electricity consumption data from Edesur's Oficina Vir
 
 | Sensor | Description | Unit |
 |---|---|---|
-| Monthly Total | Total kWh consumed this billing period (includes `daily_history` attribute) | kWh |
+| Meter Reading | Cumulative meter reading (for HA Energy dashboard) | kWh |
+| Monthly Total | Total kWh consumed this billing period | kWh |
 | Daily Consumption | Last day's consumption | kWh |
 | Daily Average | Average daily consumption | kWh |
 | Weekday Average | Average weekday consumption | kWh |
@@ -43,37 +44,16 @@ Fetches daily and monthly electricity consumption data from Edesur's Oficina Vir
    - **Password**: Your password
    - **Contract Number (NIC)**: Your contract/NIC number (found on your bill)
 
-## Daily Consumption Chart
+## Energy Dashboard
 
-The **Monthly Total** sensor includes a `daily_history` attribute with daily kWh data for the current billing period. To visualize it as a bar chart:
+The **Meter Reading** sensor is compatible with HA's built-in Energy dashboard:
 
-### Prerequisites
+1. Go to **Settings** → **Dashboards** → **Energy**
+2. Under **Electricity grid** → **Grid consumption**, click **Add consumption**
+3. Select the **Edesur Meter Reading** sensor
+4. Save
 
-Install [ApexCharts Card](https://github.com/RomRider/apexcharts-card) via HACS (Frontend section).
-
-### Dashboard Card
-
-Add a Manual card with this YAML:
-
-```yaml
-type: custom:apexcharts-card
-header:
-  title: Daily Consumption (kWh)
-  show: true
-graph_span: 31d
-span:
-  end: now
-series:
-  - entity: sensor.edesur_7405433_monthly_total
-    type: column
-    data_generator: |
-      const history = entity.attributes.daily_history || [];
-      return history.map(d => [new Date(d.date).getTime(), d.kwh]);
-    name: kWh
-    color: "#f9a825"
-```
-
-> Replace `7405433` with your NIC if different.
+HA will automatically track and chart your electricity consumption over time.
 
 ## Requirements
 
